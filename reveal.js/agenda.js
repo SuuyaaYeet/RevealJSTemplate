@@ -1,6 +1,6 @@
 var header = document.createElement("div");
 header.innerHTML = `  
-<header id="header" style="display: flex; align-items: center; position:fixed; flex-direction: row; padding:1em; z-index:488; color: white; width: 100%; max-height: 10vh; min-height: 10vh; gap: 3em; background: #1F1F1F">	
+<header id="header">	
 		<div id="imgcontainer" style="height: 100%" ><img style="height: 8vh; width: auto;" src="./images/dhbwlogo.svg"/></div>
     
 </header>	
@@ -77,7 +77,7 @@ function showAgenda() {
       <svg xmlns="http://www.w3.org/2000/svg" width="1vh"  height="1vh"  fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
       <circle cx="8" cy="8" r="8"/>
     </svg>
-    <a style="color: white; font-size: 2.9vh;">${slide.name}</a>
+    <a style="margin-bottom: 0.3vh; font-weight: bold; font-size: 2.9vh;">${slide.name}</a>
       </div>
       `;
 
@@ -92,7 +92,7 @@ function showAgenda() {
         if (subslideName === currentSlideTitle) {
           /*** JONA ***/
           newTitle.innerHTML += `
-					<a style="color: white; font-size: 1.8vh; align-self: flex-start; margin-left: calc(${margin}px + 0.5vw + 0.4vw)">${subslideName}</a>`;
+					<a style="margin-bottom: 0.2vh; font-size: 1.8vh; align-self: flex-start; margin-left: calc(${margin}px + 0.5vw + 0.4vw)">${subslideName}</a>`;
           // <div style="display: flex; 
           // justify-content:center; 
           // flex-direction: row; 
