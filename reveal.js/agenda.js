@@ -88,8 +88,8 @@ function showAgenda() {
         var subslideName = x.attributes["title"].value;
         var margin =
           (newTitle.offsetWidth - newTitle.children[0].offsetWidth) / 2;
-        console.log(margin);
-        console.log(margin);
+        // console.log(margin);
+        // console.log(margin);
         if (addedNames.includes(subslideName)) return;
         addedNames.push(subslideName);
 

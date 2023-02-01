@@ -8,8 +8,8 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<!-- <link rel="stylesheet" href="dist/theme/black.css"> -->
-		<link rel="stylesheet" href="dist/theme/white.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<!-- <link rel="stylesheet" href="dist/theme/white.css"> -->
 
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 
@@ -116,7 +116,25 @@
 			Reveal.initialize({
 				hash: true,					
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes],
+				keyboard: {
+					84: () => { 
+						console.log("T key pressed, changing Theme!");
+						if(document.querySelector(`link[href="dist/theme/white.css"`)) {
+							var newStyle = document.createElement("link");
+							newStyle.href = "dist/theme/black.css";
+							newStyle.rel = "stylesheet";
+							document.head.appendChild(newStyle);
+							document.head.removeChild(document.querySelector(`link[href="dist/theme/white.css"`));
+						} else {
+							var newStyle = document.createElement("link");
+							newStyle.href = "dist/theme/white.css";
+							newStyle.rel = "stylesheet";
+							document.head.appendChild(newStyle);
+							document.head.removeChild(document.querySelector(`link[href="dist/theme/black.css"`));
+						}
+				}
+				}
 			});
 		</script>
 		<style>
