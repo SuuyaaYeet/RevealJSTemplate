@@ -1,0 +1,1 @@
+ "C:\Program Files\draw.io\draw.io.exe" -x -f png --scale 5 -o ./ ./
