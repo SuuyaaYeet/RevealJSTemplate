@@ -1,10 +1,13 @@
 var header = document.createElement("div");
-header.innerHTML = `  
-<header id="header">	
-		<div id="imgcontainer" style="height: 100%" ><img style="height: 8vh; width: auto;" src="./images/dhbwlogo.svg"/></div>
-    
-</header>	
-`;
+header.id = "header";
+var imgcontainer = document.createElement("div");
+imgcontainer.id = "imgcontainer";
+imgcontainer.style.cssText = `height: 100%"`;
+var image = document.createElement("img");
+image.style.cssText = `height: 8vh; width: auto;`;
+image.src = "./images/dhbwlogo.svg";
+imgcontainer.appendChild(image);
+header.appendChild(imgcontainer);
 {
   /* <div id="headercontent" style="height: 100%" display: flex; align-items: center; justify-content: center;></div> */
 }
@@ -83,7 +86,8 @@ function showAgenda() {
 
       slide.childs.forEach((x) => {
         var subslideName = x.attributes["title"].value;
-        var margin = (newTitle.offsetWidth - newTitle.children[0].offsetWidth) / 2;
+        var margin =
+          (newTitle.offsetWidth - newTitle.children[0].offsetWidth) / 2;
         console.log(margin);
         console.log(margin);
         if (addedNames.includes(subslideName)) return;
@@ -93,12 +97,11 @@ function showAgenda() {
           /*** JONA ***/
           newTitle.innerHTML += `
 					<a style="margin-bottom: 0.2vh; font-size: 1.8vh; align-self: flex-start; margin-left: calc(${margin}px + 0.5vw + 0.4vw)">${subslideName}</a>`;
-          // <div style="display: flex; 
-          // justify-content:center; 
-          // flex-direction: row; 
-          // gap: 0.5em; align-items: 
+          // <div style="display: flex;
+          // justify-content:center;
+          // flex-direction: row;
+          // gap: 0.5em; align-items:
           // center; flex-grow: 1; align-self: flex-end;">
-					
         }
         // <svg xmlns="http://www.w3.org/2000/svg" width="1vh" height="1vh" fill="currentColor" class="bi bi-square-fill" viewBox="0 0 16 16">
         // 	  <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
