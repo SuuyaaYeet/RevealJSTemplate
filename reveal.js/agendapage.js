@@ -9,7 +9,7 @@ class Agenda extends HTMLElement {
          {
            
             if(item.innerHTML == null|| item.innerHTML.trim() === '') return
-            console.log(item);
+            // console.log(item);
             if(item)
             var cln = item.cloneNode(true);            
             this.svgs.push(cln);
