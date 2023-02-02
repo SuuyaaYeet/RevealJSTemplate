@@ -5,20 +5,42 @@ class SmartList extends HTMLElement {
 
         this.tmp = "";
         this.append("<ul>");
+        
 
-        this.childNodes.forEach((item)=>
-         {
-           
-            if(item.innerHTML == null|| item.innerHTML.trim() === '') return        
-            if(!item) return;
+        if(this.childNodes.length > 1)
+        {
+            this.childNodes.forEach((item)=>
+            {
+            
+                if(item.innerHTML == null|| item.innerHTML.trim() === '') return        
+                if(!item) return;
 
-            if(this.attributes['fade'])
-            this.append(`<li class="fragment">`);
-            else
-                this.append("<li>");
-            this.append(item.outerHTML);
-            this.append("</li>");                   
-          });
+                if(this.attributes['fade'])
+                this.append(`<li class="fragment">`);
+                else
+                    this.append("<li>");
+                this.append(item.outerHTML);
+                this.append("</li>");                   
+            });
+        }
+        else
+        {         
+            var items = this.innerHTML.split("\n");           
+            items.forEach((item)=>
+            {
+                item = item.trim();
+                if(item == null|| item.trim() === '') return        
+                if(!item) return;
+
+                console.log(item)
+                if(this.attributes['fade'])
+                this.append(`<li class="fragment">`);
+                else
+                    this.append("<li>");
+                this.append(item);                
+                this.append("</li>");   
+            });                
+        }
 
           this.append("<ul>");
           
