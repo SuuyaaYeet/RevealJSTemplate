@@ -95,7 +95,8 @@ function showAgenda() {
     if (
       slide.name === currentSlideTitle ||
       slide.childs.some(
-        (c) => c.attributes["title"].value === currentSlideTitle
+        (c) => c.attributes["title"].value === currentSlideTitle && 
+        c.parentElement.attributes["title"].value === currentParentSlideTitle //Sonst können Unter-Sections nicht gleich heißen
       )
     ) {
       newTitle.innerHTML = `
@@ -103,7 +104,7 @@ function showAgenda() {
       <svg xmlns="http://www.w3.org/2000/svg" width="1vh"  height="1vh"  fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
       <circle cx="8" cy="8" r="8"/>
     </svg>
-    <a style="margin-bottom: 0.3vh; font-weight: bold; font-size: 2.9vh;">${slide.name}</a>
+    <a style="color: white; font-size: 2.9vh;">${slide.name}</a>
       </div>
       `;
 
@@ -120,10 +121,10 @@ function showAgenda() {
           /*** JONA ***/
           newTitle.innerHTML += `
 					<a style="margin-bottom: 0.2vh; font-size: 1.8vh; align-self: flex-start; margin-left: calc(${margin}px + 0.5vw + 0.4vw)">${subslideName}</a>`;
-          // <div style="display: flex;
-          // justify-content:center;
-          // flex-direction: row;
-          // gap: 0.5em; align-items:
+          // <div style="display: flex; 
+          // justify-content:center; 
+          // flex-direction: row; 
+          // gap: 0.5em; align-items: 
           // center; flex-grow: 1; align-self: flex-end;">
         }
         // <svg xmlns="http://www.w3.org/2000/svg" width="1vh" height="1vh" fill="currentColor" class="bi bi-square-fill" viewBox="0 0 16 16">
