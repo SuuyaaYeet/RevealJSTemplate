@@ -1,0 +1,32 @@
+/*********************************************
+ * CUSTOM STYLES
+ *********************************************/
+
+.header-title {
+  color: grey !important;
+  font-size: 2vh;
+}
+
+.header-title.focus {
+  color: white !important;
+  font-size: 2.9vh;
+}
+
+.header-subtitle {
+  display: none;
+  margin-bottom: 0.2vh;
+  font-size: 1.8vh;
+  align-self: flex-start;
+}
+
+.bulletpoint {
+  fill: grey;
+  width: 8px;
+  height: 8px;
+}
+
+.bulletpoint.focus {
+  fill: white;
+  width: 1vh;
+  height: 1vh;
+}
