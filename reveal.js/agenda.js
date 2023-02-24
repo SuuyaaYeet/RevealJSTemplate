@@ -62,11 +62,17 @@ function updateAgenda(currentSlide, currentSubslide) {
   titlecontainer.children.forEach((child) => {
     child.querySelector(".header-title").classList.remove("focus");
     child.querySelector(".bulletpoint").classList.remove("focus");
+    child.querySelector(
+      ".bulletpoint"
+    ).innerHTML = `<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>`;
   });
 
   // add focus to active title
   slideElement.querySelector(".header-title").classList.add("focus");
   slideElement.querySelector(".bulletpoint").classList.add("focus");
+  slideElement.querySelector(
+    ".bulletpoint"
+  ).innerHTML = `<circle cx="8" cy="8" r="8"/>`;
 
   // reset subtitle focus
   document.querySelectorAll(".header-subtitle").forEach((subtitle) => {
@@ -80,10 +86,6 @@ function updateAgenda(currentSlide, currentSubslide) {
   slideElement.querySelectorAll(".header-subtitle")[
     currentSubslide
   ].style.display = "flex";
-
-  console.log(titlecontainer.children);
-  console.log(slides);
-  console.log(currentSlide);
 }
 
 function changeDisplay() {
