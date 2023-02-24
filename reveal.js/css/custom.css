@@ -1,8 +1,17 @@
 /*********************************************
  * CUSTOM STYLES
  *********************************************/
+:root {
+  --r-main-font: "Chivo", sans-serif;
+  --r-heading-font: "Chivo", sans-serif;
+  --r-code-font: monospace;
+}
 
- #header {
+body {
+  font-family: "Chivo", sans-serif;
+}
+
+#header {
   display: flex;
   align-items: center;
   position: fixed;
@@ -42,6 +51,7 @@
 }
 
 .bulletpoint.focus {
+  margin-top: 5px;
   fill: white;
   width: 1vh;
   height: 1vh;
