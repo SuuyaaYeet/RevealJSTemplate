@@ -83,7 +83,7 @@ function updateAgenda(currentSlide, currentSubslide, firstLoad) {
 
   // reset subtitle focus
   document.querySelectorAll(".header-subtitle").forEach((subtitle) => {
-    subtitle.style.display = "none";
+    subtitle.classList.add("inactive");
   });
 
   // scroll Element into view, if not in viewport by default
@@ -99,7 +99,10 @@ function updateAgenda(currentSlide, currentSubslide, firstLoad) {
   // add focus to active subtitle
   slideElement.querySelectorAll(".header-subtitle")[
     currentSubslide
-  ].style.display = "flex";
+  ].classList.add("active");
+  slideElement.querySelectorAll(".header-subtitle")[
+    currentSubslide
+  ].classList.remove("inactive");
 }
 
 function changeDisplay() {

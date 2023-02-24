@@ -35,6 +35,8 @@ body {
 .header-title.focus {
   color: white !important;
   font-size: 2.9vh;
+  animation-name: textgrowth;
+  animation-duration: 0.4s;
 }
 
 .header-subtitle {
@@ -42,6 +44,27 @@ body {
   margin-bottom: 0.2vh;
   font-size: 1.8vh;
   align-self: flex-start;
+}
+
+.header-subtitle.active {
+  display: flex;
+  margin-bottom: 0.2vh;
+  font-size: 1.8vh;
+  align-self: flex-start;
+  animation-name: fade;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in;
+}
+
+.header-subtitle.inactive {
+  display: none;
+  margin-bottom: 0.2vh;
+  font-size: 1.8vh;
+  align-self: flex-start;
+  animation-name: fade;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in;
+  animation-direction: reverse;
 }
 
 .bulletpoint {
@@ -54,4 +77,40 @@ body {
   fill: white;
   width: 1vh;
   height: 1vh;
+  animation-name: bulletgrowth;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+}
+
+@keyframes textgrowth {
+  from {
+    fill: grey;
+    font-size: 2vh;
+  }
+  to {
+    fill: white;
+    font-size: 2.9vh;
+  }
+}
+
+@keyframes bulletgrowth {
+  from {
+    width: 8px;
+    height: 8px;
+  }
+  to {
+    width: 1vh;
+    height: 1vh;
+  }
+}
+
+@keyframes fade {
+  from {
+    display: none;
+    opacity: 0;
+  }
+  to {
+    display: flex;
+    opacity: 1;
+  }
 }
