@@ -1,3 +1,6 @@
+var previousSlide = 0;
+var slides;
+var intSlidesCount;
 var header = document.createElement("div");
 header.id = "header";
 var imgcontainer = document.createElement("div");
@@ -8,39 +11,31 @@ image.style.cssText = `height: 8vh; width: auto;`;
 image.src = "./images/dhbwlogo.svg";
 imgcontainer.appendChild(image);
 header.appendChild(imgcontainer);
-{
-  /* <div id="headercontent" style="height: 100%" display: flex; align-items: center; justify-content: center;></div> */
-}
 document.body.prepend(header);
-
+var titlecontainer = document.createElement("div");
+titlecontainer.id = "titlecontainer";
+titlecontainer.style.cssText = `
+overflow: hidden;
+display: flex;
+align-items: center;
+flex-direction: row;
+padding: 1em;
+z-index: 488;
+color: white;
+width: 100%;
+max-height: 10vh;
+min-height: 10vh;
+gap: 3em;`;
+header.appendChild(titlecontainer);
 Reveal.on("ready", (event) => {
-  showAgenda();
-  Reveal.on("slidechanged", (event) => {
-    showAgenda();
-  });
-});
-
-function showAgenda() {
-  var headerElement = document.getElementById("header");
-  // headerElement.innerHTML = "";
-  while (headerElement.children.length > 1) {
-    // console.log(headerElement, "removing");
-    headerElement.removeChild(headerElement.lastChild);
-  }
-
-  if (!Reveal.getCurrentSlide().hasAttribute("title")) {
-    header.style.visibility = "hidden";
-    return;
-  }
-  header.style.visibility = "visible";
-
-  var slides = Reveal.getHorizontalSlides()
+  slides = Reveal.getHorizontalSlides()
     .filter((slide) => slide.hasAttribute("title"))
     .map((slide) => ({
       name: slide.attributes["title"].value,
       childs: [],
     }));
-
+  intSlidesCount = Reveal.getHorizontalSlides().length - slides.length;
+  console.log(intSlidesCount);
   Reveal.getVerticalSlides().forEach((slide) => {
     slides.forEach((s) => {
       if (slide.parentElement.attributes["title"] == null) return;
@@ -50,11 +45,32 @@ function showAgenda() {
     });
   });
 
-  var currentParentSlideTitle = Reveal.getCurrentSlide().parentElement?.attributes["title"]?.value??null;
-  var currentSlideTitle = Reveal.getCurrentSlide().attributes["title"].value;
+  // console.log(slides);
+  showAgenda();
+  Reveal.on("slidechanged", (event) => {
+    showAgenda();
+    scrollTitle(event.indexh);
+    previousSlide++;
+  });
+});
 
+function showAgenda() {
+  // titlecontainer.innerHTML = "";
+  while (titlecontainer.children.length > 0) {
+    // console.log(titlecontainer, "removing");
+    titlecontainer.removeChild(titlecontainer.lastChild);
+  }
+
+  if (!Reveal.getCurrentSlide().hasAttribute("title")) {
+    header.style.visibility = "hidden";
+    return;
+  }
+  header.style.visibility = "visible";
+
+  var currentSlideTitle = Reveal.getCurrentSlide().attributes["title"].value;
+  // console.log(Reveal.getCurrentSlide());
   var addedNames = [];
-  // var row = headerElement.insertRow(0);
+  // var row = titlecontainer.insertRow(0);
   slides.forEach((slide) => {
     // var cell = row.insertCell(0);
     //cell.style.width = "20em";
@@ -62,13 +78,19 @@ function showAgenda() {
     addedNames.push(slide.name);
 
     var newTitle = document.createElement("div");
-    var dynamicWidth = 85 / slides.length + "vw";
+    // var dynamicWidth = 85 / slides.length + "vw";
+    var dynamicWidth = 85 / 5 + "vw";
+    // if (slides.length < 4) {
+    //   dynamicWidth = 85 / slides.length + "vw";
+    // } else {
+    //   dynamicWidth = 85 / 4 + "vw";
+    // }
     newTitle.style.cssText = `display: flex; 
       justify-content:center; 
       flex-direction: column; 
       gap: 0.5em; align-items: 
       center; min-width: ${dynamicWidth}`;
-    headerElement.appendChild(newTitle);
+    titlecontainer.appendChild(newTitle);
 
     if (
       slide.name === currentSlideTitle ||
@@ -126,7 +148,36 @@ function showAgenda() {
 		  	<a style="color: grey; font-size: 2vh;">${slide.name}</a>
       </div>
 			`;
-      headerElement.appendChild(newTitle);
+      titlecontainer.appendChild(newTitle);
     }
   });
+}
+
+var scrollAmount = document.body.getBoundingClientRect().width / 5;
+
+function scrollTitle(currentSlide) {
+  var lastScroll = titlecontainer - 4 * scrollAmount;
+  console.log(
+    titlecontainer.scrollWidth,
+    scrollAmount,
+    scrollAmount * (slides.length - 1),
+    titlecontainer.scrollWidth - titlecontainer.scrollLeft
+  );
+  if (previousSlide > currentSlide) scrollAmount = scrollAmount * -1;
+  console.log(scurrentSlide);
+  if (currentSlide - intSlidesCount < 4 && scrollAmount > 0) return;
+  previousSlide = currentSlide;
+
+  if (currentSlide - intSlidesCount == slides.length - 1) {
+    titlecontainer.scroll({
+      top: 0,
+      left:
+        titlecontainer.scrollWidth -
+        titlecontainer.scrollLeft -
+        titlecontainer.clientWidth /* scrollAmount * (slides.length - 1)*/,
+      behavior: "smooth",
+    });
+  } else {
+    titlecontainer.scroll({ top: 0, left: scrollAmount, behavior: "smooth" });
+  }
 }
