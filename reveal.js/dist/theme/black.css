@@ -361,22 +361,3 @@ section.has-light-background h6 {
     background-color: var(--r-background-color);
   }
 }
-
-/*********************************************
- * CUSTOM CHANGES
- *********************************************/
-
-#header {
-  display: flex;
-  align-items: center;
-  position: fixed;
-  flex-direction: row;
-  padding: 1em;
-  z-index: 488;
-  color: white;
-  width: 100%;
-  max-height: 10vh;
-  min-height: 10vh;
-  gap: 3em;
-  background: #1f1f1f;
-}
