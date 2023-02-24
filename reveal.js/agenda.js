@@ -48,7 +48,7 @@ Reveal.on("ready", (event) => {
   });
 
   generateAgenda();
-  updateAgenda(event.indexh - contentSlidesLength, event.indexv);
+  updateAgenda(event.indexh - contentSlidesLength, event.indexv, true);
 
   Reveal.on("slidechanged", (event) => {
     updateAgenda(event.indexh - contentSlidesLength, event.indexv);
@@ -56,7 +56,7 @@ Reveal.on("ready", (event) => {
   });
 });
 
-function updateAgenda(currentSlide, currentSubslide) {
+function updateAgenda(currentSlide, currentSubslide, firstLoad) {
   // toggle Agenda visibility
   changeDisplay();
 
@@ -87,7 +87,11 @@ function updateAgenda(currentSlide, currentSubslide) {
   });
 
   // scroll Element into view, if not in viewport by default
-  scrollTitle(currentSlide);
+  if (firstLoad) {
+    scrollTitle(currentSlide, false);
+  } else {
+    scrollTitle(currentSlide, true);
+  }
 
   // check for subtitles
   if (!slideElement.querySelector(".header-subtitle")) return;
@@ -141,19 +145,29 @@ function generateAgenda() {
   });
 }
 
-function scrollTitle(currentSlide) {
+function scrollTitle(currentSlide, smooth) {
+  var scrollBehavior = "smooth";
+  if (!smooth) scrollBehavior = "auto";
   console.log(previousContentSlide);
+  console.log(currentSlide);
   if (currentSlide > previousContentSlide) {
-    if (currentSlide === slides.length - 1) return;
+    if (currentSlide === slides.length - 1) {
+      titlecontainer.children[currentSlide].scrollIntoView({
+        behavior: scrollBehavior,
+        block: "end",
+        inline: "nearest",
+      });
+      return;
+    }
     titlecontainer.children[currentSlide + 1].scrollIntoView({
-      behavior: "smooth",
+      behavior: scrollBehavior,
       block: "end",
       inline: "nearest",
     });
   } else {
     if (currentSlide - 1 < 0) return;
     titlecontainer.children[currentSlide - 1].scrollIntoView({
-      behavior: "smooth",
+      behavior: scrollBehavior,
       block: "end",
       inline: "nearest",
     });
