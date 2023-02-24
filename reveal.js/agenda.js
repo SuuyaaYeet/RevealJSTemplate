@@ -1,4 +1,4 @@
-var previousSlide = 0;
+var previousContentSlide = 0;
 var slides;
 var intSlidesCount;
 var header = document.createElement("div");
@@ -27,6 +27,7 @@ max-height: 10vh;
 min-height: 10vh;
 gap: 3em;`;
 header.appendChild(titlecontainer);
+
 Reveal.on("ready", (event) => {
   slides = Reveal.getHorizontalSlides()
     .filter((slide) => slide.hasAttribute("title"))
@@ -34,7 +35,9 @@ Reveal.on("ready", (event) => {
       name: slide.attributes["title"].value,
       childs: [],
     }));
+
   contentSlidesLength = Reveal.getHorizontalSlides().length - slides.length;
+
   Reveal.getVerticalSlides().forEach((slide) => {
     slides.forEach((s) => {
       if (slide.parentElement.attributes["title"] == null) return;
@@ -43,19 +46,23 @@ Reveal.on("ready", (event) => {
       }
     });
   });
-  generateAgenda(event.currentSlide);
+
+  generateAgenda();
   updateAgenda(event.indexh - contentSlidesLength, event.indexv);
+
   Reveal.on("slidechanged", (event) => {
-    console.log(event.indexh, event.indexv);
-    changeDisplay();
     updateAgenda(event.indexh - contentSlidesLength, event.indexv);
-    scrollTitle(event.indexh);
-    previousSlide++;
+    // scrollTitle(event.indexh - contentSlidesLength);
   });
 });
 
 function updateAgenda(currentSlide, currentSubslide) {
+  // toggle Agenda visibility
+  changeDisplay();
+
+  // guard clause if not a content slide
   if (currentSlide < 0) return;
+
   const slideElement = titlecontainer.children[currentSlide];
 
   // reset title focus
@@ -79,6 +86,9 @@ function updateAgenda(currentSlide, currentSubslide) {
     subtitle.style.display = "none";
   });
 
+  // scroll Element into view, if not in viewport by default
+  scrollTitle(currentSlide);
+
   // check for subtitles
   if (!slideElement.querySelector(".header-subtitle")) return;
 
@@ -96,8 +106,7 @@ function changeDisplay() {
   header.style.visibility = "visible";
 }
 
-function generateAgenda(currentSlide) {
-  console.log(currentSlide);
+function generateAgenda() {
   slides.forEach((slide) => {
     var newTitle = document.createElement("div");
     titlecontainer.appendChild(newTitle);
@@ -105,7 +114,7 @@ function generateAgenda(currentSlide) {
     if (slides.length < 4) {
       dynamicWidth = 85 / slides.length + "vw";
     } else {
-      dynamicWidth = 85 / 6 + "vw";
+      dynamicWidth = 85 / 5 + "vw";
     }
     newTitle.style.cssText = `display: flex; 
       justify-content:center; 
@@ -123,12 +132,6 @@ function generateAgenda(currentSlide) {
 
     slide.childs.forEach((x) => {
       var subslideName = x.attributes["title"].value;
-      // console.log(subslideName );
-      console.log(newTitle.children[0].offsetLeft);
-      console.log(newTitle.children[0].children[1]);
-      console.log(newTitle.offsetLeft);
-      // var margin =
-      //   (newTitle.offsetWidth - newTitle.children[0].offsetWidth) / 2;
       newTitle.innerHTML += `
 					<a class="header-subtitle" style="margin-left: calc(${
             newTitle.querySelector(".header-title").offsetLeft -
@@ -137,4 +140,23 @@ function generateAgenda(currentSlide) {
     });
   });
 }
-function scrollTitle(currentSlide) {}
+
+function scrollTitle(currentSlide) {
+  console.log(previousContentSlide);
+  if (currentSlide > previousContentSlide) {
+    if (currentSlide === slides.length - 1) return;
+    titlecontainer.children[currentSlide + 1].scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  } else {
+    if (currentSlide - 1 < 0) return;
+    titlecontainer.children[currentSlide - 1].scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  }
+  previousContentSlide = currentSlide;
+}
