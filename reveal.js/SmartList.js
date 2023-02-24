@@ -32,7 +32,7 @@ class SmartList extends HTMLElement {
                 if(item == null|| item.trim() === '') return        
                 if(!item) return;
 
-                console.log(item)
+                // console.log(item)
                 if(this.attributes['fade'])
                 this.append(`<li class="fragment">`);
                 else
