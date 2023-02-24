@@ -100,6 +100,7 @@ function generateAgenda(currentSlide) {
   console.log(currentSlide);
   slides.forEach((slide) => {
     var newTitle = document.createElement("div");
+    titlecontainer.appendChild(newTitle);
     var dynamicWidth;
     if (slides.length < 4) {
       dynamicWidth = 85 / slides.length + "vw";
@@ -123,12 +124,17 @@ function generateAgenda(currentSlide) {
     slide.childs.forEach((x) => {
       var subslideName = x.attributes["title"].value;
       // console.log(subslideName );
-      var margin =
-        (newTitle.offsetWidth - newTitle.children[0].offsetWidth) / 2;
+      console.log(newTitle.children[0].offsetLeft);
+      console.log(newTitle.children[0].children[1]);
+      console.log(newTitle.offsetLeft);
+      // var margin =
+      //   (newTitle.offsetWidth - newTitle.children[0].offsetWidth) / 2;
       newTitle.innerHTML += `
-					<a class="header-subtitle" style="margin-left: calc(${margin}px + 0.5vw + 0.4vw)">${subslideName}</a>`;
+					<a class="header-subtitle" style="margin-left: calc(${
+            newTitle.querySelector(".header-title").offsetLeft -
+            newTitle.offsetLeft
+          }px - 0.5em)">${subslideName}</a>`;
     });
-    titlecontainer.appendChild(newTitle);
   });
 }
 function scrollTitle(currentSlide) {}
