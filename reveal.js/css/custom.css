@@ -51,7 +51,6 @@ body {
 }
 
 .bulletpoint.focus {
-  margin-top: 5px;
   fill: white;
   width: 1vh;
   height: 1vh;
