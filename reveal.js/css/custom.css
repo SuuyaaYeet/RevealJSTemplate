@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   position: fixed;
+  visibility: hidden;
   flex-direction: row;
   padding: 1em;
   z-index: 488;
