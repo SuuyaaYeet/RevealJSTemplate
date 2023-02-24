@@ -79,7 +79,6 @@ body {
   height: 1vh;
   animation-name: bulletgrowth;
   animation-duration: 0.4s;
-  animation-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }
 
 @keyframes textgrowth {
@@ -105,11 +104,11 @@ body {
 }
 
 @keyframes fade {
-  from {
+  0% {
     display: none;
     opacity: 0;
   }
-  to {
+  100% {
     display: flex;
     opacity: 1;
   }
