@@ -97,12 +97,12 @@ function updateAgenda(currentSlide, currentSubslide, firstLoad) {
   if (!slideElement.querySelector(".header-subtitle")) return;
 
   // add focus to active subtitle
-  slideElement.querySelectorAll(".header-subtitle")[
-    currentSubslide
-  ].classList.add("active");
-  slideElement.querySelectorAll(".header-subtitle")[
-    currentSubslide
-  ].classList.remove("inactive");
+  slideElement
+    .querySelectorAll(".header-subtitle")
+    [currentSubslide].classList.add("active");
+  slideElement
+    .querySelectorAll(".header-subtitle")
+    [currentSubslide].classList.remove("inactive");
 }
 
 function changeDisplay() {
@@ -151,8 +151,6 @@ function generateAgenda() {
 function scrollTitle(currentSlide, smooth) {
   var scrollBehavior = "smooth";
   if (!smooth) scrollBehavior = "auto";
-  console.log(previousContentSlide);
-  console.log(currentSlide);
   if (currentSlide > previousContentSlide) {
     if (currentSlide === slides.length - 1) {
       titlecontainer.children[currentSlide].scrollIntoView({
